@@ -21,7 +21,7 @@ from opencensus.trace.tracer import Tracer
 from opencensus.ext.flask.flask_middleware import FlaskMiddleware
 from applicationinsights import TelemetryClient
 
-ConnectionString = 'InstrumentationKey=155fb713-8f7c-455b-951d-d97fc483dd4e;IngestionEndpoint=https://westus2-2.in.applicationinsights.azure.com/'
+ConnectionString = 'InstrumentationKey=b70656d2-7252-47d1-b16f-9bbc4e5de894;IngestionEndpoint=https://australiaeast-1.in.applicationinsights.azure.com/;LiveEndpoint=https://australiaeast.livediagnostics.monitor.azure.com/'
 
 # Logging
 logger = logging.getLogger(__name__)
