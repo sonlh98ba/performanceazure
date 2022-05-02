@@ -1,12 +1,14 @@
 #!/bin/bash
 
 # Variables
-resourceGroup="acdnd-c4-project"
-location="westus"
+uniqueId=20210405
+resourceGroup="group$uniqueId"
+location="westus2"
+appInsight="insight$uniqueId"
 osType="UbuntuLTS"
-vmssName="udacity-vmss"
-adminName="udacityadmin"
-storageAccount="udacitydiag$RANDOM"
+vmssName="vmss$uniqueId"
+adminName="admin$uniqueId"
+storageAccount="storage$uniqueId"
 bePoolName="$vmssName-bepool"
 lbName="$vmssName-lb"
 lbRule="$lbName-network-rule"
@@ -17,11 +19,8 @@ probeName="tcpProbe"
 vmSize="Standard_B1ls"
 storageType="Standard_LRS"
 
-# Create resource group. 
-# This command will not work for the Cloud Lab users. 
-# Cloud Lab users can comment this command and 
-# use the existing Resource group name, such as, resourceGroup="cloud-demo-153430" 
-echo "STEP 0 - Creating resource group $resourceGroup..."
+# Create resource group
+echo "Creating resource group $resourceGroup..."
 
 az group create \
 --name $resourceGroup \
@@ -31,7 +30,7 @@ az group create \
 echo "Resource group created: $resourceGroup"
 
 # Create Storage account
-echo "STEP 1 - Creating storage account $storageAccount"
+echo "Creating storage account $storageAccount"
 
 az storage account create \
 --name $storageAccount \
@@ -42,7 +41,7 @@ az storage account create \
 echo "Storage account created: $storageAccount"
 
 # Create Network Security Group
-echo "STEP 2 - Creating network security group $nsgName"
+echo "Creating network security group $nsgName"
 
 az network nsg create \
 --resource-group $resourceGroup \
@@ -52,7 +51,7 @@ az network nsg create \
 echo "Network security group created: $nsgName"
 
 # Create VM Scale Set
-echo "STEP 3 - Creating VM scale set $vmssName"
+echo "Creating VM scale set $vmssName"
 
 az vmss create \
   --resource-group $resourceGroup \
@@ -69,12 +68,12 @@ az vmss create \
   --upgrade-policy-mode automatic \
   --admin-username $adminName \
   --generate-ssh-keys \
-  --verbose 
+  --verbose
 
 echo "VM scale set created: $vmssName"
 
 # Associate NSG with VMSS subnet
-echo "STEP 4 - Associating NSG: $nsgName with subnet: $subnetName"
+echo "Associating NSG: $nsgName with subnet: $subnetName"
 
 az network vnet subnet update \
 --resource-group $resourceGroup \
@@ -86,7 +85,7 @@ az network vnet subnet update \
 echo "NSG: $nsgName associated with subnet: $subnetName"
 
 # Create Health Probe
-echo "STEP 5 - Creating health probe $probeName"
+echo "Creating health probe $probeName"
 
 az network lb probe create \
   --resource-group $resourceGroup \
@@ -101,7 +100,7 @@ az network lb probe create \
 echo "Health probe created: $probeName"
 
 # Create Network Load Balancer Rule
-echo "STEP 6 - Creating network load balancer rule $lbRule"
+echo "Creating network load balancer rule $lbRule"
 
 az network lb rule create \
   --resource-group $resourceGroup \
@@ -118,7 +117,7 @@ az network lb rule create \
 echo "Network load balancer rule created: $lbRule"
 
 # Add port 80 to inbound rule NSG
-echo "STEP 7 - Adding port 80 to NSG $nsgName"
+echo "Adding port 80 to NSG $nsgName"
 
 az network nsg rule create \
 --resource-group $resourceGroup \
@@ -132,7 +131,7 @@ az network nsg rule create \
 echo "Port 80 added to NSG: $nsgName"
 
 # Add port 22 to inbound rule NSG
-echo "STEP 8 - Adding port 22 to NSG $nsgName"
+echo "Adding port 22 to NSG $nsgName"
 
 az network nsg rule create \
 --resource-group $resourceGroup \
