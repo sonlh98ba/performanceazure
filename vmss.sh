@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Variables
-uniqueId=20210405
+uniqueId=20220205
 resourceGroup="group$uniqueId"
-location="westus2"
+location="australiaeast"
 appInsight="insight$uniqueId"
 osType="UbuntuLTS"
 vmssName="vmss$uniqueId"
