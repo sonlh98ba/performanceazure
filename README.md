@@ -21,12 +21,12 @@ With a combination of cloud technologies, such as Azure Kubernetes Service, VM S
 1. Log in to Azure using `az login`. Run `./vmss.sh` in the terminal. Check the Public IP address. 
    ```
    az vmss list-instance-connection-info \
-   --resource-group group20210405 \
-   --name vmss20210405
+   --resource-group group20220205 \
+   --name vmss20220205
    ```
 2. Connect to the VM. 
    ```
-   ssh -p [port] admin20210405@[public-ip]
+   ssh -p [port] admin20220205@[public-ip]
    ```
 3. Clone project and deploy manually.
 
