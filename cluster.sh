@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Variables
-uniqueId=20210405
+uniqueId=20220205
 resourceGroup="group$uniqueId"
 clusterName="cluster$uniqueId"
 
